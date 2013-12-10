@@ -9,14 +9,17 @@
 	"inRepository": true,
 	"translatorType": 4,
 	"browserSupport": "gcsi",
-	"lastUpdated": "2013-12-09 16:25:03"
+	"lastUpdated": "2013-12-10 12:08:41"
 }
 
 function detectWeb(doc, url){
 	//testing if a link to a rdf file exist
 	if(doc.getElementById('zotero_rdf')){
 		//testing to know if we have a book or a chapter
-		if(doc.body.classList.contains('livre') || doc.body.classList.contains('Livre')){
+		var met = doc.getElementsByName('DC.type')[0];
+		var cont = met.getAttributeNode("content").value
+		Zotero.debug(cont);
+		if(cont == 'Book' || cont == 'book'){
 			return 'book';
 		}else{
 			return 'bookSection';
@@ -39,8 +42,4 @@ function doWeb(doc, url) {
 				 translator.translate();
 		});
 	}
-}
-
-function hasClass(element, cls) {
-	return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
 }
